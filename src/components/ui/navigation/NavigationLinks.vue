@@ -10,20 +10,10 @@ interface Link {
 
 const links = ref<Link[]>([
   {
-    label: 'Home',
+    label: 'Leagues',
     route: '/',
     icon: 'pi pi-home',
-  },
-  {
-    label: 'Teams',
-    route: '/teams',
-    icon: 'pi pi-star',
-  },
-  {
-    label: 'Leagues',
-    route: '/leagues',
-    icon: 'pi pi-star',
-  },
+  }
 ]);
 </script>
 

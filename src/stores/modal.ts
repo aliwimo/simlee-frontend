@@ -1,5 +1,3 @@
-// stores/modal.ts
-
 import { defineStore } from 'pinia';
 import { type ModalKey, ModalMap } from '@/config/ModalService.ts';
 

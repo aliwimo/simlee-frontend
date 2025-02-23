@@ -1,11 +1,7 @@
-// src/config/ModalService.ts
-
-import LoginModal from '@/components/ui/auth/LoginModal.vue';
-import RegisterModal from '@/components/ui/auth/RegisterModal.vue';
+import CreateLeagueModal from '@/components/ui/modals/CreateLeagueModal.vue';
 
 export const ModalMap = {
-  login: LoginModal,
-  register: RegisterModal,
+  create_league: CreateLeagueModal,
 };
 
 export type ModalKey = keyof typeof ModalMap

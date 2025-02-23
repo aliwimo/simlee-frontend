@@ -23,7 +23,7 @@ withDefaults(defineProps<{
       <span>{{ league.status }}</span>
     </div>
 
-    <Button v-show="showLink" label="Details" size="small" as="router-link" :to="`/leagues/${league.id}`" />
+    <Button v-show="showLink" label="Details" size="small" as="router-link" :to="`/league/${league.id}`" />
   </div>
 </template>
 

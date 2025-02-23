@@ -1,28 +1,24 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { Tag } from 'primevue';
 import type { League } from '@/types/models/league'
-import { leagueService } from '@/api/services/LeagueService.ts';
-import { useRoute } from 'vue-router';
-import LeaguesListCard from '@/components/pages/leagues/index/LeaguesListCard.vue'
 
-const route = useRoute();
-const { id } = route.params;
-const league = ref<League | null>(null);
+defineProps<{ league: League }>();
 
-
-onMounted(async () => {
-  try {
-    league.value = await leagueService.getOne(parseInt(id as string));
-  } catch (error: any) {
-    console.error(error);
-  }
-});
 
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <LeaguesListCard v-if="league" :league="league" :show-link="false" />
+  <div>
+    <div v-if="league" class="flex justify-between items-start">
+      <div class="flex flex-col">
+        <span class="text-2xl font-bold text-primary-600">{{ league.name }}</span>
+        <span class="text-xs italic">{{ league.season }}/{{ league.season + 1 }}</span>
+      </div>
+      <div>
+        <Tag v-if="league.status == 'active'" severity="success" value="Success">Ongoing</Tag>
+        <Tag v-else severity="secondary" value="Success">Ongoing</Tag>
+      </div>
+    </div>
   </div>
 </template>
 

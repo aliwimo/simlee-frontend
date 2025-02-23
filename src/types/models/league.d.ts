@@ -5,5 +5,6 @@ export type League = {
   name: string;
   season: number;
   teams_number: number;
+  current_week: number;
   status: LeagueStatusEnum;
 }

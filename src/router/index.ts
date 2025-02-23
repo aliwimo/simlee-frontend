@@ -18,6 +18,11 @@ const router = createRouter({
       path: '/leagues',
       name: 'leagues',
       component: () => import('@/views/leagues/IndexView.vue'),
+    },
+    {
+      path: '/leagues/:id',
+      name: 'league',
+      component: () => import('@/views/leagues/ShowView.vue'),
     }
   ],
 });

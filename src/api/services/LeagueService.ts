@@ -11,4 +11,20 @@ export const leagueService = {
     });
     return response.data;
   },
+
+  async getOne(leagueId: number): Promise<League> {
+    const response = await axios.request<any, AxiosResponse<League>>({
+      method: endpoints.league.show.method,
+      url: endpoints.league.show.url(leagueId),
+    });
+    return response.data;
+  },
+
+  async getStandings(leagueId: number): Promise<League> {
+    const response = await axios.request<any, AxiosResponse<League>>({
+      method: endpoints.league.standings.method,
+      url: endpoints.league.standings.url(leagueId),
+    });
+    return response.data;
+  }
 };

@@ -1,33 +1,29 @@
 <script setup lang="ts">
-
-import { onMounted, ref } from 'vue';
 import type { League } from '@/types/models/league';
-import { leagueService } from '@/api/services/LeagueService.ts';
+import { Button } from 'primevue';
 
-const leagues = ref<League[]>([]);
-
-onMounted(async () => {
-  try {
-    leagues.value = await leagueService.getAll();
-  } catch (error: any) {
-    console.error(error);
-  }
+withDefaults(defineProps<{
+  league: League,
+  showLink?: boolean
+}>(), {
+  showLink: true,
 });
 
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
-    <div
-      v-for="league in leagues"
-      :key="league.id"
-      class="bg-white p-4 rounded shadow"
-    >
-      <div>{{ league.name }}</div>
-      <div>{{ league.season }}/{{ league.season + 1 }}</div>
-      <div>{{ league.teams_number }}</div>
-      <div>{{ league.status }}</div>
+  <div class="flex flex-col gap-4 bg-white p-4 rounded-lg shadow">
+    <div class="flex flex-col">
+      <span class="text-2xl font-bold text-primary-600">{{ league.name }}</span>
+      <span class="text-xs italic">{{ league.season }}/{{ league.season + 1 }}</span>
     </div>
+
+    <div class="flex justify-between gap-4">
+      <span>{{ league.teams_number }}</span>
+      <span>{{ league.status }}</span>
+    </div>
+
+    <Button v-show="showLink" label="Details" size="small" as="router-link" :to="`/leagues/${league.id}`" />
   </div>
 </template>
 

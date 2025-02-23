@@ -19,6 +19,11 @@ const links = ref<Link[]>([
     route: '/teams',
     icon: 'pi pi-star',
   },
+  {
+    label: 'Leagues',
+    route: '/leagues',
+    icon: 'pi pi-star',
+  },
 ]);
 </script>
 

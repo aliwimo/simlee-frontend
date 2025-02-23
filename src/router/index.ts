@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'teams',
       component: () => import('@/views/TeamsView.vue'),
     },
+    {
+      path: '/leagues',
+      name: 'leagues',
+      component: () => import('@/views/leagues/IndexView.vue'),
+    }
   ],
 });
 

@@ -1,9 +1,9 @@
-import TeamEndpoints from '@/api/endpoints/TeamEndpoints.ts';
-import AuthEndpoints from '@/api/endpoints/AuthEndpoints.ts'
+import LeagueEndpoints from '@/api/endpoints/LeagueEndpoints.ts';
+import FixtureEndpoints from '@/api/endpoints/FixtureEndpoints.ts';
 
 const EndpointManager = {
-  auth: AuthEndpoints,
-  team: TeamEndpoints,
+  fixtures: FixtureEndpoints,
+  league: LeagueEndpoints,
 };
 
 export default EndpointManager;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ViewTitle from '@/components/ui/ViewTitle.vue';
 import WelcomeCard from '@/components/ui/WelcomeCard.vue';
-import LeaguesList from '@/components/pages/leagues/index/LeaguesList.vue'
+import LeaguesList from '@/components/pages/leagues/index/LeaguesList.vue';
 </script>
 
 <template>

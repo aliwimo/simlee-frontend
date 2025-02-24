@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue';
 import { leagueService } from '@/api/services/LeagueService.ts';
 import type { Standing } from '@/types/models/standing';
 import { DataTable, Column } from 'primevue';

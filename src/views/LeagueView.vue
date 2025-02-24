@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import LeagueDetails from '@/components/pages/leagues/show/LeagueDetails.vue';
-import LeagueStandings from '@/components/pages/leagues/show/LeagueStandings.vue'
-import LeagueFixtures from '@/components/pages/leagues/show/LeagueFixtures.vue'
-import { useRoute } from 'vue-router'
-import { onMounted, ref } from 'vue'
-import type { League } from '@/types/models/league'
-import { leagueService } from '@/api/services/LeagueService.ts'
+import LeagueStandings from '@/components/pages/leagues/show/LeagueStandings.vue';
+import LeagueFixtures from '@/components/pages/leagues/show/LeagueFixtures.vue';
+import { useRoute } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import type { League } from '@/types/models/league';
+import { leagueService } from '@/api/services/LeagueService.ts';
 
 const route = useRoute();
 const { id } = route.params;

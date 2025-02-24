@@ -2,11 +2,11 @@
 import { Dialog, Button, Select, Message, InputText } from 'primevue';
 import { LeagueResolver } from '@/api/reslovers/LeagueResolver.ts';
 import { Form, FormField, type FormSubmitEvent } from '@primevue/forms';
-import { defineEmits, onMounted, ref } from 'vue'
+import { defineEmits, onMounted, ref } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import { generateSeasons, generateTeamNumbers } from '@/utilities/array-generators.ts';
-import { leagueService } from '@/api/services/LeagueService.ts'
-import { useRouter } from 'vue-router'
+import { leagueService } from '@/api/services/LeagueService.ts';
+import { useRouter } from 'vue-router';
 
 const emit = defineEmits(['close']);
 const toast = useToast();

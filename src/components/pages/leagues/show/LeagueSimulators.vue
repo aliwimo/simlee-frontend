@@ -2,9 +2,8 @@
 import { leagueService } from '@/api/services/LeagueService.ts';
 import { Button } from 'primevue';
 import type { League } from '@/types/models/league';
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const emit = defineEmits<{ (e: 'simulated'): void }>();
 defineProps<{
   league: League;
   selectedWeek: number;
@@ -16,7 +15,7 @@ const simulateLeague = async (leagueId: number) => {
   try {
     loading.value = true;
     await leagueService.simulate(leagueId);
-    emit('simulated');
+    window.location.reload();
   } catch (error) {
     console.error(error);
   } finally {
@@ -28,7 +27,7 @@ const simulateWeek = async (leagueId: number, week: number) => {
   try {
     loading.value = true;
     await leagueService.simulateWeek(leagueId, week);
-    emit('simulated');
+    window.location.reload();
   } catch (error) {
     console.error(error);
   } finally {

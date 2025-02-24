@@ -10,15 +10,11 @@ import type { League } from '@/types/models/league';
 
 
 const props = defineProps<{ league: League }>();
-const emit = defineEmits<{ (e: 'simulated'): void }>();
 const fixtures = ref<Fixture[]>([]);
 
 const weeks = ref<{ value: number, label: string }[]>([]);
 const selectedWeek = ref<number>(1);
 
-const refreshUI = async () => {
-  emit('simulated');
-};
 
 const fetchFixtures = async () => {
   try {
@@ -45,7 +41,6 @@ watch(props.league, () => fetchFixtures());
       v-if="league.status == 'active'"
       :league="league"
       :selectedWeek="selectedWeek"
-      @simulated="refreshUI"
     />
 
     <Select

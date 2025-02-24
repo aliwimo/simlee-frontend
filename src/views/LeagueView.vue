@@ -31,7 +31,7 @@ onMounted(async () => await fetchLeague());
         <league-details :league="league" />
         <league-standings :league="league" />
       </div>
-      <league-fixtures :league="league" class="col-span-1" @simulated="fetchLeague" />
+      <league-fixtures :league="league" class="col-span-1" />
     </div>
     <div v-if="league" class="grid grid-cols-3 md:grid-cols-4 gap-4"></div>
   </div>

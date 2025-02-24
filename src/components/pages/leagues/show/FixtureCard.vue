@@ -6,13 +6,11 @@ import { Button } from 'primevue';
 import { fixtureService } from '@/api/services/FixtureService.ts';
 
 defineProps<{ fixture: Fixture }>();
-const emit = defineEmits<{ (e: 'simulated'): void }>();
-
 
 const simulateFixture = async (fixtureId: number) => {
   try {
     await fixtureService.simulateFixture(fixtureId);
-    emit('simulated');
+    window.location.reload();
   } catch (error) {
     console.log(error);
   }
@@ -36,14 +34,7 @@ const simulateFixture = async (fixtureId: number) => {
     />
     <div>
       <Button
-        v-if="fixture.played"
-        label="Edit"
-        severity="secondary"
-        size="small"
-        fluid
-      />
-      <Button
-        v-else
+        v-if="!fixture.played"
         label="Simulate"
         severity="secondary"
         size="small"

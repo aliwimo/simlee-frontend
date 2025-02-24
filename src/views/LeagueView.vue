@@ -12,13 +12,15 @@ const { id } = route.params;
 const league = ref<League | null>(null);
 
 
-onMounted(async () => {
+const fetchLeague = async () => {
   try {
     league.value = await leagueService.getOne(parseInt(id as string));
   } catch (error: any) {
     console.error(error);
   }
-});
+};
+
+onMounted(async () => await fetchLeague());
 
 </script>
 
@@ -27,9 +29,9 @@ onMounted(async () => {
     <div v-if="league" class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="col-span-1 md:col-span-2 bg-white p-4 rounded-lg shadow flex flex-col gap-4">
         <league-details :league="league" />
-        <league-standings />
+        <league-standings :league="league" />
       </div>
-      <league-fixtures :league="league" class="col-span-1" />
+      <league-fixtures :league="league" class="col-span-1" @simulated="fetchLeague" />
     </div>
     <div v-if="league" class="grid grid-cols-3 md:grid-cols-4 gap-4"></div>
   </div>

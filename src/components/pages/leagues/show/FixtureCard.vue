@@ -6,13 +6,13 @@ import { Button } from 'primevue';
 import { fixtureService } from '@/api/services/FixtureService.ts';
 
 defineProps<{ fixture: Fixture }>();
-const emit = defineEmits<{ (e: 'fixture-updated'): void }>();
+const emit = defineEmits<{ (e: 'simulated'): void }>();
 
 
 const simulateFixture = async (fixtureId: number) => {
   try {
     await fixtureService.simulateFixture(fixtureId);
-    emit('fixture-updated');
+    emit('simulated');
   } catch (error) {
     console.log(error);
   }

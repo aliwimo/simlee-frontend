@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { League } from '@/types/models/league';
-import { Button } from 'primevue';
+import { Button, Tag } from 'primevue';
 
 withDefaults(defineProps<{
   league: League,
@@ -18,9 +18,12 @@ withDefaults(defineProps<{
       <span class="text-xs italic">{{ league.season }}/{{ league.season + 1 }}</span>
     </div>
 
-    <div class="flex justify-between gap-4">
-      <span>{{ league.teams_number }}</span>
-      <span>{{ league.status }}</span>
+    <div class="flex justify-between items-center gap-4">
+      <span class="font-semibold text-sm">Teams: {{ league.teams_number }}</span>
+      <div>
+        <Tag v-if="league.status == 'active'" severity="success" value="Success">Ongoing</Tag>
+        <Tag v-else severity="secondary" value="Success">Ended</Tag>
+      </div>
     </div>
 
     <Button v-show="showLink" label="Details" size="small" as="router-link" :to="`/league/${league.id}`" />

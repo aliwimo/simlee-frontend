@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue';
 import { leagueService } from '@/api/services/LeagueService.ts';
 import type { Fixture } from '@/types/models/fixture';
 import FixtureCard from '@/components/pages/leagues/show/FixtureCard.vue';
@@ -10,15 +10,14 @@ import type { League } from '@/types/models/league';
 
 
 const props = defineProps<{ league: League }>();
-const emit = defineEmits<{ (e: 'fixture-updated'): void }>();
+const emit = defineEmits<{ (e: 'simulated'): void }>();
 const fixtures = ref<Fixture[]>([]);
 
 const weeks = ref<{ value: number, label: string }[]>([]);
 const selectedWeek = ref<number>(1);
 
 const refreshUI = async () => {
-  await fetchFixtures();
-  emit('fixture-updated');
+  emit('simulated');
 };
 
 const fetchFixtures = async () => {
@@ -32,24 +31,35 @@ const fetchFixtures = async () => {
 onMounted(async () => {
   weeks.value = generateWeeks(props.league.teams_number);
   selectedWeek.value = props.league.current_week ?? 1;
-  await refreshUI();
+  await fetchFixtures();
 });
 
-watch(selectedWeek, () => {
-  fetchFixtures();
-});
+watch(selectedWeek, () => fetchFixtures());
+watch(props.league, () => fetchFixtures());
 
 </script>
 
 <template>
   <div class="flex flex-col gap-2">
-    <LeagueSimulators :league="league" :selectedWeek="selectedWeek" />
-    <Select v-model="selectedWeek" :options="weeks" optionLabel="label" optionValue="value" placeholder="Select a Week" />
+    <LeagueSimulators
+      v-if="league.status == 'active'"
+      :league="league"
+      :selectedWeek="selectedWeek"
+      @simulated="refreshUI"
+    />
+
+    <Select
+      v-model="selectedWeek"
+      :options="weeks"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Select a Week"
+    />
+
     <FixtureCard
       v-for="fixture of fixtures"
       :key="fixture.id"
       :fixture="fixture"
-      @fixture-updated="fetchFixtures"
     />
   </div>
 </template>

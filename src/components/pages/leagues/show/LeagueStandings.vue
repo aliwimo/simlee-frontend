@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue'
 import { leagueService } from '@/api/services/LeagueService.ts';
-import { useRoute } from 'vue-router';
 import type { Standing } from '@/types/models/standing';
 import { DataTable, Column } from 'primevue';
+import type { League } from '@/types/models/league';
 
-const route = useRoute();
-const { id } = route.params;
+const props = defineProps<{ league: League }>();
 const standings = ref<Standing[]>([]);
 
-onMounted(async () => {
+const fetchStandings = async () => {
   try {
-    standings.value = await leagueService.getStandings(parseInt(id as string));
+    standings.value = await leagueService.getStandings(props.league.id);
   } catch (error: any) {
     console.error(error);
   }
-});
+};
+
+onMounted(async () => await fetchStandings());
+
+watch(props.league, async() => await fetchStandings());
+
 </script>
 
 <template>

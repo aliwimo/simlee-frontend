@@ -9,13 +9,14 @@ defineProps<{
   selectedWeek: number;
 }>();
 
+const emit = defineEmits(['simulated']);
 const loading = ref<boolean>(false);
 
 const simulateLeague = async (leagueId: number) => {
   try {
     loading.value = true;
     await leagueService.simulate(leagueId);
-    window.location.reload();
+    emit('simulated');
   } catch (error) {
     console.error(error);
   } finally {
@@ -27,7 +28,7 @@ const simulateWeek = async (leagueId: number, week: number) => {
   try {
     loading.value = true;
     await leagueService.simulateWeek(leagueId, week);
-    window.location.reload();
+    emit('simulated');
   } catch (error) {
     console.error(error);
   } finally {

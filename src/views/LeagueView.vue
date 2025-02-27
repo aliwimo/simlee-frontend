@@ -10,6 +10,8 @@ import { leagueService } from '@/api/services/LeagueService.ts'
 const route = useRoute();
 const { id } = route.params;
 const league = ref<League | null>(null);
+const refreshSignal = ref<number>(0);
+
 
 
 const fetchLeague = async () => {
@@ -18,6 +20,11 @@ const fetchLeague = async () => {
   } catch (error: any) {
     console.error(error);
   }
+};
+
+const refreshLeague = async () => {
+  await fetchLeague();
+  refreshSignal.value++;
 };
 
 onMounted(async () => await fetchLeague());
@@ -29,9 +36,9 @@ onMounted(async () => await fetchLeague());
     <div v-if="league" class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="col-span-1 md:col-span-2 bg-white p-4 rounded-lg shadow flex flex-col gap-4">
         <league-details :league="league" />
-        <league-standings :league="league" />
+        <league-standings :league="league" :refresh-signal="refreshSignal" />
       </div>
-      <league-fixtures :league="league" class="col-span-1" />
+      <league-fixtures :league="league" class="col-span-1" @simulated="refreshLeague" />
     </div>
     <div v-if="league" class="grid grid-cols-3 md:grid-cols-4 gap-4"></div>
   </div>

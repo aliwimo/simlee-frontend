@@ -10,8 +10,9 @@ import type { League } from '@/types/models/league';
 
 
 const props = defineProps<{ league: League }>();
-const fixtures = ref<Fixture[]>([]);
+const emit = defineEmits(['simulated']);
 
+const fixtures = ref<Fixture[]>([]);
 const weeks = ref<{ value: number, label: string }[]>([]);
 const selectedWeek = ref<number>(1);
 
@@ -24,6 +25,11 @@ const fetchFixtures = async () => {
   }
 };
 
+const simulated = async () => {
+  emit('simulated');
+  await fetchFixtures();
+};
+
 onMounted(async () => {
   weeks.value = generateWeeks(props.league.teams_number);
   selectedWeek.value = props.league.current_week ?? 1;
@@ -31,7 +37,9 @@ onMounted(async () => {
 });
 
 watch(selectedWeek, () => fetchFixtures());
-watch(props.league, () => fetchFixtures());
+watch(() => props.league, () => {
+  selectedWeek.value = props.league.current_week;
+});
 
 </script>
 
@@ -41,6 +49,7 @@ watch(props.league, () => fetchFixtures());
       v-if="league.status == 'active'"
       :league="league"
       :selectedWeek="selectedWeek"
+      @simulated="simulated"
     />
 
     <Select
@@ -55,6 +64,7 @@ watch(props.league, () => fetchFixtures());
       v-for="fixture of fixtures"
       :key="fixture.id"
       :fixture="fixture"
+      @simulated="simulated"
     />
   </div>
 </template>

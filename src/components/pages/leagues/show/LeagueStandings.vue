@@ -5,25 +5,34 @@ import type { Standing } from '@/types/models/standing';
 import { DataTable, Column } from 'primevue';
 import type { League } from '@/types/models/league';
 
-const props = defineProps<{ league: League }>();
+const props = defineProps<{
+  league: League,
+  refreshSignal: number,
+}>();
 const standings = ref<Standing[]>([]);
+const loading = ref<boolean>(false);
 
 const fetchStandings = async () => {
   try {
+    loading.value = true;
     standings.value = await leagueService.getStandings(props.league.id);
   } catch (error: any) {
     console.error(error);
+  } finally {
+    loading.value = false;
   }
 };
 
 onMounted(async () => await fetchStandings());
 
-watch(props.league, async() => await fetchStandings());
+watch(() => props.league, () => {
+  fetchStandings();
+});
 
 </script>
 
 <template>
-  <DataTable :value="standings" striped-rows column-resize-mode="fit">
+  <DataTable :value="standings" striped-rows column-resize-mode="fit" :loading="loading">
     <Column>
       <template #body="slotProps">
         {{ slotProps.index + 1 }}

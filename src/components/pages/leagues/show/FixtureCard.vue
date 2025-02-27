@@ -7,10 +7,12 @@ import { fixtureService } from '@/api/services/FixtureService.ts';
 
 defineProps<{ fixture: Fixture }>();
 
+const emit = defineEmits(['simulated']);
+
 const simulateFixture = async (fixtureId: number) => {
   try {
     await fixtureService.simulateFixture(fixtureId);
-    window.location.reload();
+    emit('simulated');
   } catch (error) {
     console.log(error);
   }
